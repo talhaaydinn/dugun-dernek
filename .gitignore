@@ -1,0 +1,12 @@
+node_modules/
+logs/
+
+# test sırasında oluşan tarayıcı profilleri
+chrome-prof*/
+
+# şarkılar repoya konmaz (telif). Kendi şarkılarını public/music/<kategori>/ içine koy.
+public/music/**/*.mp3
+public/music/**/*.ogg
+public/music/**/*.m4a
+public/music/**/*.wav
+public/music/**/*.webm

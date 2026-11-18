@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Halay Test Paneli</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; font: 15px/1.5 system-ui, sans-serif; background: #140a22; color: #f4eefc; }
+    main { max-width: 760px; margin: 0 auto; padding: 20px 16px 40px; }
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    p.sub { margin: 0 0 18px; color: #b9a9d6; }
+    #status { padding: 10px 14px; border-radius: 10px; background: #22143a; margin-bottom: 18px; }
+    #status.ok { border-left: 4px solid #6bdc5b; } #status.warn { border-left: 4px solid #ffc83d; }
+    section { background: #1d1131; border: 1px solid #33204f; border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+    h2 { font-size: 15px; margin: 0 0 10px; color: #ffd34d; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; }
+    button { font: inherit; font-weight: 600; padding: 9px 14px; border-radius: 9px; border: 1px solid #4a3270; background: #2c1b47; color: #fff; cursor: pointer; }
+    button:hover { background: #3a2560; } button:active { transform: translateY(1px); }
+    button.danger { border-color: #7a2a3a; background: #3a1622; }
+    input { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid #4a3270; background: #120a1f; color: #fff; width: 180px; }
+    label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+    small { color: #9c8bb8; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>🥁 Halay Test Paneli</h1>
+  <p class="sub">Buradan gönderdiğin olaylar açık olan tüm oyun ekranlarına (OBS dahil) gider. Canlı yayında elle kişi eklemek için de kullanabilirsin.</p>
+  <div id="status" class="warn">Sunucuya bağlanılıyor…</div>
+
+  <section>
+    <h2>Kim gönderiyor?</h2>
+    <label>İsim <input id="name" placeholder="boş = rastgele kişi"></label>
+    <small>Aynı ismi yazıp birkaç hediye gönderirsen o kişi puan toplar ve halaybaşı olur.</small>
+  </section>
+
+  <section>
+    <h2>Yorum</h2>
+    <div class="row">
+      <button data-ev="join">💬 "halay" yaz (katıl)</button>
+      <button data-ev="comment">💬 Rastgele yorum</button>
+      <button data-ev="bots">🤖 8 kişi ekle</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Müzik oylaması</h2>
+    <div class="row">
+      <button data-vote="halay">🥁 "halay" oyu</button>
+      <button data-vote="horon">🌊 "horon" oyu</button>
+      <button data-vote="zeybek">🦅 "zeybek" oyu</button>
+      <button data-ev="skip">⏭ Şarkıyı geç</button>
+    </div>
+    <small>Şarkı bitince en çok oy alan kategoriden yeni şarkı başlar. "Şarkıyı geç" hemen bitirir.</small>
+  </section>
+
+  <section>
+    <h2>Hediye (jeton değeri)</h2>
+    <div class="row">
+      <button data-gift="1">🌹 Gül · 1</button>
+      <button data-gift="5">💖 5</button>
+      <button data-gift="10">☕ 10</button>
+      <button data-gift="30">🍩 30</button>
+      <button data-gift="100">👐 100 (davulcu)</button>
+      <button data-gift="199">🌈 199 (zurnacı)</button>
+      <button data-gift="500">💰 500</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Gelin &amp; Damat</h2>
+    <div class="row">
+      <button data-say="gelin olmak istiyorum 👰">👰 "gelin" yaz</button>
+      <button data-say="damat benim 🤵">🤵 "damat" yaz</button>
+      <button data-gift="300">💍 300 jeton (damat/gelin)</button>
+    </div>
+    <small>Üstte isim yazarsan aynı kişi olarak gönderir: önce "gelin" yaz, sonra 300 jeton at → gelin olur.</small>
+  </section>
+
+  <section>
+    <h2>Kamera</h2>
+    <div class="row">
+      <button data-cam="wide">🎥 Geniş açı</button>
+      <button data-cam="orbit">🔄 Etrafında dön</button>
+      <button data-cam="sweep">🎬 Alçaktan süzül</button>
+      <button data-cam="couple">💍 Gelin-damada yakın</button>
+      <button data-cam="musicians">🥁 Müzisyenlere yakın</button>
+    </div>
+    <small>Kamera ayrıca kendiliğinden ara sıra açı değiştirir ve olaylarda (yeni gelin/damat, yelek, halaybaşı) yakınlaşır.</small>
+  </section>
+
+  <section>
+    <h2>Diğer</h2>
+    <div class="row">
+      <button data-ev="like">❤️ 25 beğeni</button>
+      <button data-ev="likes">❤️❤️ 200 beğeni</button>
+      <button data-ev="follow">➕ Takip</button>
+      <button data-ev="share">↗️ Paylaşım</button>
+      <button data-ev="reset" class="danger">🔄 Turu sıfırla</button>
+    </div>
+  </section>
+</main>
+<script src="sim.js"></script>
+<script>
+  const S = window.HalaySim;
+  const statusEl = document.getElementById('status');
+  const nameEl = document.getElementById('name');
+  let ws;
+  function connect() {
+    ws = new WebSocket(`ws://${location.host}/ws`);
+    ws.onopen = () => ws.send(JSON.stringify({ type: 'hello', role: 'panel' }));
+    ws.onmessage = (m) => {
+      const e = JSON.parse(m.data);
+      if (e.type === 'status') { statusEl.textContent = e.message; statusEl.className = e.connected ? 'ok' : 'warn'; }
+    };
+    ws.onclose = () => { statusEl.textContent = 'Sunucu kapalı. "npm start" ile başlat.'; statusEl.className = 'warn'; setTimeout(connect, 2000); };
+  }
+  connect();
+  const send = (event) => event && ws.readyState === 1 && ws.send(JSON.stringify({ type: 'sim', event }));
+  const opts = (extra = {}) => { const name = nameEl.value.trim(); return name ? { ...extra, name } : extra; };
+
+  document.querySelectorAll('[data-gift]').forEach((b) =>
+    b.addEventListener('click', () => send(S.make('gift', opts({ coins: Number(b.dataset.gift), reuse: 0.5 })))));
+  document.querySelectorAll('[data-say]').forEach((b) =>
+    b.addEventListener('click', () => send(S.make('comment', opts({ text: b.dataset.say, reuse: 0 }))))); 
+  document.querySelectorAll('[data-cam]').forEach((b) =>
+    b.addEventListener('click', () => send({ type: 'camera', shot: b.dataset.cam })));
+  document.querySelectorAll('[data-vote]').forEach((b) =>
+    b.addEventListener('click', () => send(S.make('vote', opts({ cat: b.dataset.vote, reuse: 0 })))));
+  document.querySelectorAll('[data-ev]').forEach((b) => b.addEventListener('click', () => {
+    const ev = b.dataset.ev;
+    if (ev === 'bots') { for (let i = 0; i < 8; i++) setTimeout(() => send(S.make('join', { reuse: 0 })), i * 180); return; }
+    if (ev === 'likes') { for (let i = 0; i < 8; i++) setTimeout(() => send(S.make('like', opts({ count: 25 }))), i * 120); return; }
+    if (ev === 'reset' && !confirm('Puanlar ve halay sıfırlansın mı?')) return;
+    send(S.make(ev, opts(ev === 'like' ? { count: 25 } : {})));
+  }));
+</script>
+</body>
+</html>

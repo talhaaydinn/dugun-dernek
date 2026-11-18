@@ -1,0 +1,21 @@
+ŞARKI KLASÖRLERİ
+================
+
+halay/   -> halay şarkıları
+horon/   -> horon şarkıları
+zeybek/  -> zeybek şarkıları
+parti/   -> parti şarkıları (pop, elektronik, oyun havası...)
+
+Bu klasörlere .mp3 / .ogg / .m4a / .wav dosyası koy. Sayfayı yenilemen yeterli,
+sunucuyu yeniden başlatmana gerek yok.
+
+- Klasör boşsa o kategori için otomatik üretilen bir ezgi çalar.
+- Dosya adına tempo yazarsan dansçılar o tempoya uyar:
+    "Davul Zurna Halay 112bpm.mp3"
+  Yazmazsan config.js içindeki kategori temposu kullanılır.
+- Şarkı en fazla config.js'teki maxSongSeconds kadar çalar (varsayılan 150 sn),
+  sonra en çok oy alan kategoriden yenisi başlar.
+
+ÖNEMLİ: Telifli şarkı (plak/albüm kaydı, başka sanatçının yorumu) koyma.
+TikTok canlı yayında telifli müziği algılayıp sesi kısabilir ya da yayını
+kapatabilir. Telifsiz/ticari kullanımı serbest kayıtlar ya da kendi kaydın kullan.
